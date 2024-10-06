@@ -9,7 +9,6 @@ import 'package:daily_topper/view/notification_screen.dart';
 import 'package:daily_topper/view/profile_screen.dart';
 import 'package:go_router/go_router.dart';
 
-import 'error_screen.dart';
 
 class RouteGenerator {
   static final GoRouter router = GoRouter(
@@ -33,7 +32,7 @@ class RouteGenerator {
                   GoRoute(
                     name: Routes.allCategoryScreen,
                     path: Routes.allCategoryScreen,
-                    builder: (_, state) => AllCategoriesScreen(),
+                    builder: (_, state) => const AllCategoriesScreen(),
                   ),
                   GoRoute(
                     name: Routes.newsDetails,

@@ -42,9 +42,9 @@ class SourceModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': this.id,
-      'name': this.name,
-      'publishedAt': this.publishedAt,
+      'id': id,
+      'name': name,
+      'publishedAt': publishedAt,
     };
   }
 

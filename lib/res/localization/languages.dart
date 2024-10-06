@@ -12,6 +12,11 @@ class Languages extends Translations {
           "marked_news" : "Marked News",
           "categories": "Categories",
           "view_all" : "View All",
+          "daily_topper":"Daily Topper",
+          "posted_by":"Posted by",
+          "at":"at",
+          "source":"Source",
+          "related_news":"Related News",
         }
       };
 }

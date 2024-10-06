@@ -8,10 +8,10 @@ extension AnimateInteger on Widget {
     required Duration duration,
   }) {
     return _AnimatedIntegerWidget(
-      child: this,
       start: start,
       end: end,
       duration: duration,
+      child: this,
     );
   }
 }
@@ -23,12 +23,11 @@ class _AnimatedIntegerWidget extends StatefulWidget {
   final Duration duration;
 
   const _AnimatedIntegerWidget({
-    Key? key,
     required this.child,
     required this.start,
     required this.end,
     required this.duration,
-  }) : super(key: key);
+  });
 
   @override
   _AnimatedIntegerWidgetState createState() => _AnimatedIntegerWidgetState();
@@ -64,7 +63,7 @@ class _AnimatedIntegerWidgetState extends State<_AnimatedIntegerWidget> with Sin
       children: [
         Text(
           _animation.value.toString(),
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         widget.child,
       ],

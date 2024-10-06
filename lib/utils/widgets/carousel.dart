@@ -6,7 +6,7 @@ import 'package:infinite_carousel/infinite_carousel.dart';
 
 class ImageCarousel extends StatefulWidget {
   final List<Map<String,String>> elementlist;
-  ImageCarousel({required this.elementlist});
+  const ImageCarousel({super.key, required this.elementlist});
   @override
   _ImageCarouselState createState() => _ImageCarouselState();
 }
@@ -43,9 +43,9 @@ class _ImageCarouselState extends State<ImageCarousel> {
                   alignment: Alignment.center,
                   children: [
                     Image.asset(widget.elementlist[itemIndex]["image"]!,)
-                        .animatedPadding(duration: Duration(milliseconds: 400),all:  itemIndex == currentIndex ? 0 : 8,curve: Curves.easeOut),
+                        .animatedPadding(duration: const Duration(milliseconds: 400),all:  itemIndex == currentIndex ? 0 : 8,curve: Curves.easeOut),
                     AnimatedOpacity(
-                      duration: Duration(milliseconds: 400),
+                      duration: const Duration(milliseconds: 400),
                       opacity: itemIndex != currentIndex ? 0.7 : 0,
                       child: Container(
                         height: context.screenWidth * 24,
@@ -56,7 +56,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
                   ],
                 ),
                 AnimatedOpacity(
-                    duration: Duration(milliseconds: 400),
+                    duration: const Duration(milliseconds: 400),
                     opacity: itemIndex != currentIndex ? 0.2 : 1,
                     child: Text(widget.elementlist[itemIndex]["label"]!,textAlign: TextAlign.center,))
               ],

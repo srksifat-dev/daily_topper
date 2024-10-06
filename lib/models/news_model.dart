@@ -70,13 +70,13 @@ class NewsModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': this.id,
-      'author': this.author,
-      'title': this.title,
-      'url': this.url,
-      'publishedAt': this.publishedAt,
-      'content': this.content,
-      'source': this.source,
+      'id': id,
+      'author': author,
+      'title': title,
+      'url': url,
+      'publishedAt': publishedAt,
+      'content': content,
+      'source': source,
     };
   }
 

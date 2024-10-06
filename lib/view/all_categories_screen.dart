@@ -11,7 +11,7 @@ class AllCategoriesScreen extends StatelessWidget {
       appBar: buildAppBar(),
       body: GridView.builder(
         itemCount: Dummy.categories.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           childAspectRatio: 1,
         ),
@@ -21,7 +21,7 @@ class AllCategoriesScreen extends StatelessWidget {
               Dummy.categories[index]["image"]!,
               fit: BoxFit.cover,
             ),
-            SizedBox(
+            const SizedBox(
               height: 4,
             ),
             Text(
@@ -36,7 +36,7 @@ class AllCategoriesScreen extends StatelessWidget {
 
   AppBar buildAppBar() {
     return AppBar(
-      title: Text("Categories"),
+      title: const Text("Categories"),
     );
   }
 }

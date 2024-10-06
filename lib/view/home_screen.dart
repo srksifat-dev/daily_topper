@@ -1,10 +1,7 @@
-import 'package:daily_topper/core/routes/navbar.dart';
-import 'package:daily_topper/main.dart';
 import 'package:daily_topper/utils/extensions/screen_size_extension.dart';
 import 'package:daily_topper/utils/extensions/widget_extensions.dart';
 import 'package:daily_topper/utils/widgets/carousel.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_common/get_reset.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,7 +9,7 @@ import '../core/data/dummy_data.dart';
 import '../core/routes/routes.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                     "view_all".tr,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_forward_ios,
                     size: 20,
                   ),
@@ -44,10 +41,10 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            ImageCarousel(
+            const ImageCarousel(
               elementlist: Dummy.categories,
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             buildNewsSection()
@@ -75,7 +72,7 @@ class HomeScreen extends StatelessWidget {
             maxLines: 2,
           ),
         ),
-        separatorBuilder: (_, __) => Divider().paddingSymmetric(horizontal: 16),
+        separatorBuilder: (_, __) => const Divider().paddingSymmetric(horizontal: 16),
         itemCount: Dummy.news.length,
       ),
     );
@@ -89,63 +86,63 @@ class HomeScreen extends StatelessWidget {
         children: [
           TextButton.icon(
             style: ButtonStyle(
-              foregroundColor: WidgetStatePropertyAll(Colors.black),
+              foregroundColor: const WidgetStatePropertyAll(Colors.black),
               textStyle: WidgetStatePropertyAll(
                 Theme.of(context)
                     .textTheme
                     .titleMedium!
                     .copyWith(fontFamily: "Roboto"),
               ),
-              iconSize: WidgetStatePropertyAll(24)
+              iconSize: const WidgetStatePropertyAll(24)
             ),
             onPressed: () {},
             label: Text("trending".tr),
-            icon: Icon(Icons.trending_up).paddingOnly(right: 8),
+            icon: const Icon(Icons.trending_up).paddingOnly(right: 8),
           ),
           TextButton.icon(
             style: ButtonStyle(
-              foregroundColor: WidgetStatePropertyAll(Colors.black),
+              foregroundColor: const WidgetStatePropertyAll(Colors.black),
               textStyle: WidgetStatePropertyAll(
                 Theme.of(context)
                     .textTheme
                     .titleMedium!
                     .copyWith(fontFamily: "Roboto"),
               ),
-              iconSize: WidgetStatePropertyAll(24)
+              iconSize: const WidgetStatePropertyAll(24)
             ),
             onPressed: () {},
             label: Text("top_10_today".tr),
-            icon: Icon(Icons.star).paddingOnly(right: 8),
+            icon: const Icon(Icons.star).paddingOnly(right: 8),
           ),
           TextButton.icon(
             style: ButtonStyle(
-              foregroundColor: WidgetStatePropertyAll(Colors.black),
+              foregroundColor: const WidgetStatePropertyAll(Colors.black),
               textStyle: WidgetStatePropertyAll(
                 Theme.of(context)
                     .textTheme
                     .titleMedium!
                     .copyWith(fontFamily: "Roboto"),
               ),
-              iconSize: WidgetStatePropertyAll(24)
+              iconSize: const WidgetStatePropertyAll(24)
             ),
             onPressed: () {},
             label: Text("archived_news".tr),
-            icon: Icon(Icons.bookmark).paddingOnly(right: 8),
+            icon: const Icon(Icons.bookmark).paddingOnly(right: 8),
           ),
           TextButton.icon(
             style: ButtonStyle(
-              foregroundColor: WidgetStatePropertyAll(Colors.black),
+              foregroundColor: const WidgetStatePropertyAll(Colors.black),
               textStyle: WidgetStatePropertyAll(
                 Theme.of(context)
                     .textTheme
                     .titleMedium!
                     .copyWith(fontFamily: "Roboto"),
               ),
-              iconSize: WidgetStatePropertyAll(24)
+              iconSize: const WidgetStatePropertyAll(24)
             ),
             onPressed: () {},
             label: Text("marked_news".tr),
-            icon: Icon(Icons.border_color).paddingOnly(right: 8),
+            icon: const Icon(Icons.border_color).paddingOnly(right: 8),
           ),
         ],
       ),
