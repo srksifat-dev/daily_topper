@@ -1,10 +1,9 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:daily_topper/models/news_model.dart';
 import 'package:daily_topper/view_models/controller/news_view_model_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
-
-import '../core/data/dummy_data.dart';
 
 class AllCategoriesScreen extends StatelessWidget {
   AllCategoriesScreen({super.key});
@@ -21,20 +20,23 @@ class AllCategoriesScreen extends StatelessWidget {
           crossAxisCount: 3,
           childAspectRatio: 1,
         ),
-        itemBuilder: (context, index) => Column(
-          children: [
-            Image.asset(
-              categories[index]["image"]!,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            Text(
-              categories[index]["label"]!,
-              textAlign: TextAlign.center,
-            ),
-          ],
+        itemBuilder: (context, index) => ZoomIn(
+          delay: Duration(milliseconds: (index + 1) * 100),
+          child: Column(
+            children: [
+              Image.asset(
+                categories[index]["image"]!,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              Text(
+                categories[index]["label"]!,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );

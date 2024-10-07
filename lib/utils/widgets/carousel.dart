@@ -1,4 +1,5 @@
 
+import 'package:animate_do/animate_do.dart';
 import 'package:daily_topper/utils/extensions/screen_size_extension.dart';
 import 'package:daily_topper/utils/extensions/widget_extensions.dart';
 import 'package:daily_topper/view_models/controller/news_view_model_controller.dart';
@@ -30,37 +31,43 @@ class _ImageCarouselState extends State<ImageCarousel> {
         itemCount: widget.elementlist.length,
         itemExtent: context.screenWidth * 24,
         itemBuilder: (context, itemIndex, realIndex) {
-          return InkWell(
-            onTap: (){
-              setState(() {
-                newsController.carouselIndex.value = itemIndex;
-              });
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Stack(
-                  alignment: Alignment.center,
+          return FadeIn(
+            duration: Duration(milliseconds: 500),
+            child: SlideInRight(
+              delay: Duration(milliseconds: (itemIndex + 1) * 200),
+              child: InkWell(
+                onTap: (){
+                  setState(() {
+                    newsController.carouselIndex.value = itemIndex;
+                  });
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(widget.elementlist[itemIndex]["image"]!,)
-                        .animatedPadding(duration: const Duration(milliseconds: 400),all:  itemIndex == newsController.carouselIndex.value ? 0 : 8,curve: Curves.easeOut),
-                    AnimatedOpacity(
-                      duration: const Duration(milliseconds: 400),
-                      opacity: itemIndex != newsController.carouselIndex.value ? 0.7 : 0,
-                      child: Container(
-                        height: context.screenWidth * 24,
-                        width: context.screenWidth * 24,
-                        color: Colors.white
-                      ),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Image.asset(widget.elementlist[itemIndex]["image"]!,)
+                            .animatedPadding(duration: const Duration(milliseconds: 400),all:  itemIndex == newsController.carouselIndex.value ? 0 : 8,curve: Curves.easeOut),
+                        AnimatedOpacity(
+                          duration: const Duration(milliseconds: 400),
+                          opacity: itemIndex != newsController.carouselIndex.value ? 0.7 : 0,
+                          child: Container(
+                            height: context.screenWidth * 24,
+                            width: context.screenWidth * 24,
+                            color: Colors.white
+                          ),
+                        ),
+                      ],
                     ),
+                    AnimatedOpacity(
+                        duration: const Duration(milliseconds: 400),
+                        opacity: itemIndex != newsController.carouselIndex.value ? 0.2 : 1,
+                        child: Text(widget.elementlist[itemIndex]["label"]!,textAlign: TextAlign.center,))
                   ],
                 ),
-                AnimatedOpacity(
-                    duration: const Duration(milliseconds: 400),
-                    opacity: itemIndex != newsController.carouselIndex.value ? 0.2 : 1,
-                    child: Text(widget.elementlist[itemIndex]["label"]!,textAlign: TextAlign.center,))
-              ],
+              ),
             ),
           );
         },
