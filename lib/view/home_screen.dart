@@ -1,17 +1,24 @@
+import 'package:daily_topper/models/news_model.dart';
 import 'package:daily_topper/utils/extensions/screen_size_extension.dart';
 import 'package:daily_topper/utils/extensions/widget_extensions.dart';
 import 'package:daily_topper/utils/widgets/carousel.dart';
+import 'package:daily_topper/view_models/controller/news_view_model_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/data/dummy_data.dart';
 import '../core/routes/routes.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+  final newsController = Get.put(NewsViewModelController());
+
   @override
   Widget build(BuildContext context) {
+    List<Map<String,String>> categories = newsController.getCategories();
+    List<NewsModel> news = newsController.getNews();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -41,39 +48,39 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const ImageCarousel(
-              elementlist: Dummy.categories,
+            ImageCarousel(
+              elementlist: categories,
             ),
             const SizedBox(
               height: 8,
             ),
-            buildNewsSection()
+            buildNewsSection(news)
           ],
         ),
       ),
     );
   }
 
-  Widget buildNewsSection() {
+  Widget buildNewsSection(List<NewsModel> news) {
     return Expanded(
       child: ListView.separated(
         itemBuilder: (context, index) => ListTile(
           onTap: (){
-            context.pushNamed(Routes.newsDetails,extra: Dummy.news[index]);
+            context.pushNamed(Routes.newsDetails,extra: news[index]);
           },
           leading: Image.asset(
-            Dummy.news[index].url!,
+            news[index].url!,
             width: context.screenWidth * 24,
             fit: BoxFit.cover,
           ),
           title: Text(
-            Dummy.news[index].title!,
+            news[index].title!,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
           ),
         ),
         separatorBuilder: (_, __) => const Divider().paddingSymmetric(horizontal: 16),
-        itemCount: Dummy.news.length,
+        itemCount: news.length,
       ),
     );
   }

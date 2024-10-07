@@ -2,7 +2,7 @@ import 'package:daily_topper/models/source_model.dart';
 
 import '../../models/news_model.dart';
 class Dummy{
-  static const List<NewsModel> news = [
+  final List<NewsModel> news = [
     NewsModel(
       id: "1",
       author: "Mahir",
@@ -81,7 +81,7 @@ class Dummy{
   ];
 
 
-  static const List<Map<String, String>> categories = [
+  final List<Map<String, String>> categories = [
     {'image': 'assets/images/category_national.png', 'label': 'National'},
     {
       'image': 'assets/images/category_international.png',

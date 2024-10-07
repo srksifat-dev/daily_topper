@@ -1,20 +1,25 @@
 import 'dart:math';
 
-import 'package:daily_topper/core/data/dummy_data.dart';
 import 'package:daily_topper/models/news_model.dart';
 import 'package:daily_topper/utils/extensions/screen_size_extension.dart';
 import 'package:daily_topper/utils/extensions/widget_extensions.dart';
+import 'package:daily_topper/view_models/controller/news_view_model_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class NewsDetailsScreen extends StatelessWidget {
   final NewsModel news;
 
-  const NewsDetailsScreen({required this.news, super.key});
+  NewsDetailsScreen({required this.news, super.key});
+
+  final newsController = Get.put(NewsViewModelController());
 
   @override
   Widget build(BuildContext context) {
-    NewsModel relatedNews = Dummy.news[Random().nextInt(Dummy.news.length)];
+    final newsList = newsController.getNews();
+    NewsModel relatedNews = newsList[Random().nextInt(newsList.length)];
     return Scaffold(
       body: SizedBox(
         height: double.infinity,

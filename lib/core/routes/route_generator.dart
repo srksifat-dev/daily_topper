@@ -32,7 +32,7 @@ class RouteGenerator {
                   GoRoute(
                     name: Routes.allCategoryScreen,
                     path: Routes.allCategoryScreen,
-                    builder: (_, state) => const AllCategoriesScreen(),
+                    builder: (_, state) => AllCategoriesScreen(),
                   ),
                   GoRoute(
                     name: Routes.newsDetails,

@@ -1,7 +1,9 @@
 
 import 'package:daily_topper/utils/extensions/screen_size_extension.dart';
 import 'package:daily_topper/utils/extensions/widget_extensions.dart';
+import 'package:daily_topper/view_models/controller/news_view_model_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:infinite_carousel/infinite_carousel.dart';
 
 class ImageCarousel extends StatefulWidget {
@@ -12,8 +14,7 @@ class ImageCarousel extends StatefulWidget {
 }
 
 class _ImageCarouselState extends State<ImageCarousel> {
-  final ScrollController scrollController = ScrollController();
-  int currentIndex = 0;
+  final newsController = Get.put(NewsViewModelController());
 
   @override
   void initState() {
@@ -32,7 +33,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
           return InkWell(
             onTap: (){
               setState(() {
-                currentIndex = itemIndex;
+                newsController.carouselIndex.value = itemIndex;
               });
             },
             child: Column(
@@ -43,10 +44,10 @@ class _ImageCarouselState extends State<ImageCarousel> {
                   alignment: Alignment.center,
                   children: [
                     Image.asset(widget.elementlist[itemIndex]["image"]!,)
-                        .animatedPadding(duration: const Duration(milliseconds: 400),all:  itemIndex == currentIndex ? 0 : 8,curve: Curves.easeOut),
+                        .animatedPadding(duration: const Duration(milliseconds: 400),all:  itemIndex == newsController.carouselIndex.value ? 0 : 8,curve: Curves.easeOut),
                     AnimatedOpacity(
                       duration: const Duration(milliseconds: 400),
-                      opacity: itemIndex != currentIndex ? 0.7 : 0,
+                      opacity: itemIndex != newsController.carouselIndex.value ? 0.7 : 0,
                       child: Container(
                         height: context.screenWidth * 24,
                         width: context.screenWidth * 24,
@@ -57,20 +58,20 @@ class _ImageCarouselState extends State<ImageCarousel> {
                 ),
                 AnimatedOpacity(
                     duration: const Duration(milliseconds: 400),
-                    opacity: itemIndex != currentIndex ? 0.2 : 1,
+                    opacity: itemIndex != newsController.carouselIndex.value ? 0.2 : 1,
                     child: Text(widget.elementlist[itemIndex]["label"]!,textAlign: TextAlign.center,))
               ],
             ),
           );
         },
-        controller: scrollController,
+        controller: newsController.carouselScrollController.value,
         loop: false,
         center: true,
         anchor: 0,
         velocityFactor: 0.5,
         onIndexChanged: (index) {
           setState(() {
-            currentIndex = index;
+            newsController.carouselIndex.value = index;
           });
         },
       ),
