@@ -32,7 +32,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
         itemExtent: context.screenWidth * 24,
         itemBuilder: (context, itemIndex, realIndex) {
           return FadeIn(
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             child: SlideInRight(
               delay: Duration(milliseconds: (itemIndex + 1) * 200),
               child: InkWell(

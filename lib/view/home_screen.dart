@@ -22,46 +22,55 @@ class HomeScreen extends StatelessWidget {
     List<Map<String, String>> categories = newsController.getCategories();
     List<NewsModel> news = newsController.getNews();
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            logo(context),
-            buildQuickAction(context: context).paddingAll(16),
-            FadeIn(
-              duration: Duration(milliseconds: 1000),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "categories".tr,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ).paddingOnly(left: 16),
-                  TextButton.icon(
-                    onPressed: () {
-                      context.pushNamed(Routes.allCategoryScreen);
-                    },
-                    label: Text(
-                      "view_all".tr,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 20,
-                    ),
-                    iconAlignment: IconAlignment.end,
-                  ),
-                ],
-              ),
+      body: buildBody(context, categories, news),
+    );
+  }
+
+  Widget buildBody(BuildContext context, List<Map<String, String>> categories,
+      List<NewsModel> news) {
+    return SafeArea(
+      child: Column(
+        children: [
+          logo(context),
+          buildQuickAction(context: context).paddingAll(16),
+          buildCarouselSectionTitle(context),
+          ImageCarousel(
+            elementlist: categories,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          buildNewsSection(news)
+        ],
+      ),
+    );
+  }
+
+  Widget buildCarouselSectionTitle(BuildContext context) {
+    return FadeIn(
+      duration: const Duration(milliseconds: 1000),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "categories".tr,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ).paddingOnly(left: 16),
+          TextButton.icon(
+            onPressed: () {
+              context.pushNamed(Routes.allCategoryScreen);
+            },
+            label: Text(
+              "view_all".tr,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
-            ImageCarousel(
-              elementlist: categories,
+            icon: const Icon(
+              Icons.arrow_forward_ios,
+              size: 20,
             ),
-            const SizedBox(
-              height: 8,
-            ),
-            buildNewsSection(news)
-          ],
-        ),
+            iconAlignment: IconAlignment.end,
+          ),
+        ],
       ),
     );
   }
@@ -70,7 +79,7 @@ class HomeScreen extends StatelessWidget {
     return Expanded(
       child: ListView.separated(
         itemBuilder: (context, index) => FadeIn(
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           child: SlideInUp(
             delay: Duration(milliseconds: (index + 1) * 200),
             child: ListTile(
@@ -90,10 +99,9 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        separatorBuilder: (_, index) =>
-            SlideInUp(
-                delay: Duration(milliseconds: (index + 1) * 300),
-                child: const Divider().paddingSymmetric(horizontal: 16)),
+        separatorBuilder: (_, index) => SlideInUp(
+            delay: Duration(milliseconds: (index + 1) * 300),
+            child: const Divider().paddingSymmetric(horizontal: 16)),
         itemCount: news.length,
       ),
     );
@@ -106,39 +114,40 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ZoomIn(
-            delay: Duration(milliseconds: 100),
+            delay: const Duration(milliseconds: 100),
             child: quickActionButton(
-                    context: context,
-                    label: "trending",
-                    icon: Icons.trending_up,
-                    onPressed: () {}),
+              context: context,
+              label: "trending",
+              icon: Icons.trending_up,
+              onPressed: () {},
+            ),
           ),
           ZoomIn(
-            delay: Duration(milliseconds: 300),
-
+            delay: const Duration(milliseconds: 300),
             child: quickActionButton(
-                    context: context,
-                    label: "top_10_today",
-                    icon: Icons.star,
-                    onPressed: () {}),
+              context: context,
+              label: "top_10_today",
+              icon: Icons.star,
+              onPressed: () {},
+            ),
           ),
           ZoomIn(
-            delay: Duration(milliseconds: 500),
-
+            delay: const Duration(milliseconds: 500),
             child: quickActionButton(
-                    context: context,
-                    label: "archived_news",
-                    icon: Icons.bookmark,
-                    onPressed: () {}),
+              context: context,
+              label: "archived_news",
+              icon: Icons.bookmark,
+              onPressed: () {},
+            ),
           ),
           ZoomIn(
-            delay: Duration(milliseconds: 700),
-
+            delay: const Duration(milliseconds: 700),
             child: quickActionButton(
-                    context: context,
-                    label: "marked_news",
-                    icon: Icons.border_color,
-                    onPressed: () {}),
+              context: context,
+              label: "marked_news",
+              icon: Icons.border_color,
+              onPressed: () {},
+            ),
           ),
         ],
       ),

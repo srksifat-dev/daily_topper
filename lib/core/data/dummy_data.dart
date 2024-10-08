@@ -3,7 +3,7 @@ import 'package:daily_topper/models/source_model.dart';
 import '../../models/news_model.dart';
 class Dummy{
   final List<NewsModel> news = [
-    NewsModel(
+    const NewsModel(
       id: "1",
       author: "Mahir",
       content:
@@ -18,7 +18,7 @@ class Dummy{
       "Bangladesh protest updates: Sheikh Hasina quits, interim gov't taking over",
       url: "assets/images/news1.jpeg",
     ),
-    NewsModel(
+    const NewsModel(
       id: "2",
       author: "Mahir",
       content:
@@ -33,7 +33,7 @@ class Dummy{
       "Pan Zhanle’s new swimming world-record at Olympics makes no sense, and that’s the problem",
       url: "assets/images/news2.png",
     ),
-    NewsModel(
+    const NewsModel(
       id: "3",
       author: "Mahir",
       content:
@@ -48,7 +48,7 @@ class Dummy{
       "What to know about the 25th Amendment as Trump makes wild claim about Biden",
       url: "assets/images/news3.png",
     ),
-    NewsModel(
+    const NewsModel(
       id: "4",
       author: "Mahir",
       content:
@@ -63,7 +63,7 @@ class Dummy{
       "গাজীপুর জেলা কারাগারে বিক্ষোভ-গুলি, আহত ১৬, কাশিমপুর কারাগারের সুপার প্রত্যাহার",
       url: "assets/images/news4.png",
     ),
-    NewsModel(
+    const NewsModel(
       id: "5",
       author: "Mahir",
       content:
