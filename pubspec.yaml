@@ -42,6 +42,7 @@ dependencies:
   infinite_carousel: ^1.1.1
   go_router: ^14.3.0
   animate_do: ^3.3.4
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

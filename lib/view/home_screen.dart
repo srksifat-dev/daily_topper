@@ -3,14 +3,17 @@ import 'package:daily_topper/models/news_model.dart';
 import 'package:daily_topper/utils/extensions/screen_size_extension.dart';
 import 'package:daily_topper/utils/extensions/widget_extensions.dart';
 import 'package:daily_topper/utils/widgets/carousel.dart';
+import 'package:daily_topper/view/loading_home_screen.dart';
 import 'package:daily_topper/view_models/controller/news_view_model_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/routes/routes.dart';
+import '../utils/widgets/logo.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -19,31 +22,39 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> categories = newsController.getCategories();
-    List<NewsModel> news = newsController.getNews();
     return Scaffold(
-      body: buildBody(context, categories, news),
+      body: buildBody(context),
     );
   }
 
-  Widget buildBody(BuildContext context, List<Map<String, String>> categories,
-      List<NewsModel> news) {
-    return SafeArea(
-      child: Column(
-        children: [
-          logo(context),
-          buildQuickAction(context: context).paddingAll(16),
-          buildCarouselSectionTitle(context),
-          ImageCarousel(
-            elementlist: categories,
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          buildNewsSection(news)
-        ],
-      ),
-    );
+  Widget buildBody(BuildContext context) {
+    return Obx(() {
+      switch (newsController.rxStatus.value) {
+        case Status.Loading:
+          return loadingHomeScreen(context);
+        case Status.Loaded:
+          return SafeArea(
+            child: Column(
+              children: [
+                logo(context),
+                buildQuickAction(context: context).paddingAll(16),
+                buildCarouselSectionTitle(context),
+                ImageCarousel(
+                  elementlist: newsController.rxCategoryList,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                buildNewsSection(newsController.rxNewsList)
+              ],
+            ),
+          );
+        case Status.Error:
+          return Center(
+            child: Text("error".tr),
+          );
+      }
+    });
   }
 
   Widget buildCarouselSectionTitle(BuildContext context) {
@@ -173,36 +184,6 @@ class HomeScreen extends StatelessWidget {
       onPressed: onPressed,
       label: Text(label.tr),
       icon: Icon(icon).paddingOnly(right: 8),
-    );
-  }
-
-  Widget logo(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.asset("assets/images/logo.png"),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              "app_name".tr,
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    fontFamily: "Roboto",
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            Text(
-              "app_moto".tr,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontFamily: "Roboto",
-                    fontStyle: FontStyle.italic,
-                    color: Colors.black87,
-                  ),
-            ),
-          ],
-        )
-      ],
     );
   }
 }

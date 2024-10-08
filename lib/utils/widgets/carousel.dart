@@ -82,28 +82,6 @@ class _ImageCarouselState extends State<ImageCarousel> {
           });
         },
       ),
-      // CarouselSlider(
-      //   carouselController: carouselSliderController,
-      //   items: List.generate(
-      //     10,
-      //     (index) {
-      //       print("index: ${index.toDouble()}");
-      //       return Image.asset("assets/images/category_national.png",height: currentIndex == index.toDouble() ? 100: 80,);
-      //     },
-      //   ),
-      //   options: CarouselOptions(
-      //     // height: 100,
-      //     // aspectRatio: 1,
-      //     viewportFraction: 0.2,
-      //     disableCenter: false,
-      //     enableInfiniteScroll: false,onScrolled: (index){
-      //       print("currentIndex: $index");
-      //       setState(() {
-      //         currentIndex = index!;
-      //       });
-      //   }
-      //   ),
-      // ),
     );
   }
 }

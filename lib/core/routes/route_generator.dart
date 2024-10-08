@@ -1,3 +1,4 @@
+import 'package:daily_topper/core/routes/error_screen.dart';
 import 'package:daily_topper/core/routes/navbar.dart';
 import 'package:daily_topper/core/routes/routes.dart';
 import 'package:daily_topper/models/news_model.dart';
@@ -12,11 +13,10 @@ import 'package:go_router/go_router.dart';
 
 class RouteGenerator {
   static final GoRouter router = GoRouter(
-    // errorBuilder: (context, state) {
-    //   return const ErrorPage();
-    // },
+    errorBuilder: (context, state) {
+      return const ErrorPage();
+    },
     routes: [
-      // GoRoute(path: "/",builder: (context,state)=> HomeScreen()),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return ScaffoldWithNestedNavigation(navigationShell: navigationShell);

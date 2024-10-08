@@ -20,21 +20,25 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
+        type: BottomNavigationBarType.fixed,
+        items: [
+          const BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: "Home",
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.article),
             label: "Article",
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
             label: "Notification",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_rounded),
+            icon: CircleAvatar(
+              radius: 12,
+              child: Image.asset("assets/images/logo.png"),
+            ),
             label: "Profile",
           ),
         ],

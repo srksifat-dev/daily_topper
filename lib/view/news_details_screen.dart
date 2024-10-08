@@ -20,7 +20,7 @@ class NewsDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final newsList = newsController.getNews();
+    final newsList = newsController.rxNewsList;
     NewsModel relatedNews = newsList[Random().nextInt(newsList.length)];
     return Scaffold(
       body: buildBody(context, relatedNews),
@@ -30,10 +30,8 @@ class NewsDetailsScreen extends StatelessWidget {
   SizedBox buildBody(BuildContext context, NewsModel relatedNews) {
     TextSplitter contentSplitter = TextSplitter(
       maxWidth: (context.screenWidth * 100) - 32,
-      textStyle: Theme.of(context)
-          .textTheme
-          .bodyLarge!
-          .copyWith(fontFamily: "Roboto"),
+      textStyle:
+          Theme.of(context).textTheme.bodyLarge!.copyWith(fontFamily: "Roboto"),
     );
 
     TextSplitter titleSplitter = TextSplitter(
@@ -132,68 +130,29 @@ class NewsDetailsScreen extends StatelessWidget {
                           delay: const Duration(milliseconds: 300),
                           child: SlideInUp(
                             delay: const Duration(milliseconds: 300),
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: "posted_by".tr,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .copyWith(
-                                          fontWeight: FontWeight.normal,
-                                          fontFamily: "Roboto",
-                                          color: Colors.black45,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text: " ${news.author} ",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: "Roboto",
-                                          color: Colors.black45,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text: "at".tr,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .copyWith(
-                                          fontWeight: FontWeight.normal,
-                                          fontFamily: "Roboto",
-                                          color: Colors.black45,
-                                        ),
-                                  ),
-                                  TextSpan(
-                                    text: " ${news.publishedAt ?? ""}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .copyWith(
-                                          fontWeight: FontWeight.normal,
-                                          fontFamily: "Roboto",
-                                          color: Colors.black45,
-                                        ),
-                                  ),
-                                ],
-                              ),
+                            child: buildNewsAuthor(
+                              context: context,
+                              newsAuthor: news.author,
+                              publishedAt: news.publishedAt,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 8,),
+                        const SizedBox(
+                          height: 8,
+                        ),
                         ListView.builder(
                           padding: EdgeInsets.zero,
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: contentLines.length,
                           itemBuilder: (context, index) => FadeIn(
-                            delay: Duration(milliseconds: index < 20 ? (index + 5) * 100 : 0),
+                            delay: Duration(
+                                milliseconds:
+                                    index < 20 ? (index + 5) * 100 : 0),
                             child: SlideInUp(
-                              delay: Duration(milliseconds: index < 20 ? (index + 4) * 100 : 0),
+                              delay: Duration(
+                                  milliseconds:
+                                      index < 20 ? (index + 4) * 100 : 0),
                               child: Text(
                                 contentLines[index],
                                 style: Theme.of(context)
@@ -211,25 +170,10 @@ class NewsDetailsScreen extends StatelessWidget {
                           delay: const Duration(milliseconds: 1400),
                           child: SlideInUp(
                             delay: const Duration(milliseconds: 1400),
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(text: "source".tr),
-                                  TextSpan(
-                                      text:
-                                          ": ${news.source?.name ?? "Unknown"}, "),
-                                  TextSpan(
-                                      text: news.source?.publishedAt ?? ""),
-                                ],
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(
-                                      fontWeight: FontWeight.normal,
-                                      fontFamily: "Roboto",
-                                      color: Colors.black38,
-                                    ),
-                              ),
+                            child: buildNewsSource(
+                              context: context,
+                              sourceName: news.source?.name,
+                              publishedDateOfSource: news.source?.publishedAt,
                             ),
                           ),
                         ),
@@ -271,86 +215,152 @@ class NewsDetailsScreen extends StatelessWidget {
               delay: const Duration(milliseconds: 800),
               child: SlideInLeft(
                 delay: const Duration(milliseconds: 900),
-                child: Stack(
-                  children: [
-                    Container(
-                      height: context.screenHeight * 8,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("${relatedNews.url}"),
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    Container(
-                      height: context.screenHeight * 8,
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: FadeIn(
-                              delay: const Duration(milliseconds: 900),
-                              child: SlideInLeft(
-                                delay: const Duration(milliseconds: 1000),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "${relatedNews.title}",
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge!
-                                          .copyWith(
-                                            color: Colors.white,
-                                          ),
-                                    ),
-                                    Text(
-                                      "related_news".tr,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: Colors.white,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          FadeIn(
-                            delay: const Duration(milliseconds: 850),
-                            child: SlideInLeft(
-                              delay: const Duration(milliseconds: 950),
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white.withOpacity(0.2),
-                                radius: 16,
-                                child: const Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ).paddingSymmetric(horizontal: 12, vertical: 8),
-                    ),
-                  ],
-                ),
+                child: buildRelatedNewsCard(context, relatedNews),
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildRelatedNewsCard(BuildContext context, NewsModel relatedNews) {
+    return Stack(
+      children: [
+        Container(
+          height: context.screenHeight * 8,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("${relatedNews.url}"),
+              fit: BoxFit.cover,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        Container(
+          height: context.screenHeight * 8,
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.6),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: FadeIn(
+                  delay: const Duration(milliseconds: 900),
+                  child: SlideInLeft(
+                    delay: const Duration(milliseconds: 1000),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${relatedNews.title}",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style:
+                              Theme.of(context).textTheme.titleLarge!.copyWith(
+                                    color: Colors.white,
+                                  ),
+                        ),
+                        Text(
+                          "related_news".tr,
+                          style:
+                              Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    color: Colors.white,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              FadeIn(
+                delay: const Duration(milliseconds: 850),
+                child: SlideInLeft(
+                  delay: const Duration(milliseconds: 950),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white.withOpacity(0.2),
+                    radius: 16,
+                    child: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ).paddingSymmetric(horizontal: 12, vertical: 8),
+        ),
+      ],
+    );
+  }
+
+  Widget buildNewsSource({
+    required BuildContext context,
+    String? sourceName,
+    String? publishedDateOfSource,
+  }) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(text: "source".tr),
+          TextSpan(text: ": ${sourceName ?? "Unknown"}, "),
+          TextSpan(text: publishedDateOfSource ?? ""),
+        ],
+        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              fontWeight: FontWeight.normal,
+              fontFamily: "Roboto",
+              color: Colors.black38,
+            ),
+      ),
+    );
+  }
+
+  Widget buildNewsAuthor({
+    required BuildContext context,
+    String? newsAuthor,
+    String? publishedAt,
+  }) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: "posted_by".tr,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  fontWeight: FontWeight.normal,
+                  fontFamily: "Roboto",
+                  color: Colors.black45,
+                ),
+          ),
+          TextSpan(
+            text: " ${newsAuthor ?? "Unknown"} ",
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Roboto",
+                  color: Colors.black45,
+                ),
+          ),
+          TextSpan(
+            text: "at".tr,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  fontWeight: FontWeight.normal,
+                  fontFamily: "Roboto",
+                  color: Colors.black45,
+                ),
+          ),
+          TextSpan(
+            text: " ${publishedAt ?? ""}",
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  fontWeight: FontWeight.normal,
+                  fontFamily: "Roboto",
+                  color: Colors.black45,
+                ),
           ),
         ],
       ),

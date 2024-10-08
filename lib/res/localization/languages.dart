@@ -17,6 +17,8 @@ class Languages extends Translations {
           "at":"at",
           "source":"Source",
           "related_news":"Related News",
+          "error" : "Something went wrong",
         }
+        // TODO: More Map<String,String> for different languages
       };
 }

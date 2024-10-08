@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+// The class is for splitting string according to its boundary
 class TextSplitter {
   final double maxWidth;
   final TextStyle textStyle;
 
   TextSplitter({required this.maxWidth, required this.textStyle});
 
+  // This method split the string and give us List<String>
   List<String> splitText(String text) {
     List<String> lines = [];
     String remainingText = text;
